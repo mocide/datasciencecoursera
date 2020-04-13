@@ -1,0 +1,66 @@
+pollutantmean <- function(directory, pollutant, id = 1:332) {
+  filelist <- list.files(path = directory, pattern = ".csv", full.names = TRUE)
+  values <- numeric()
+  
+  for (i in id) {
+    data <- read.csv(filelist[i])
+    values <- c(values, data[[pollutant]])
+  }
+  mean(values, na.rm = TRUE)
+}
+
+pollutantmean("/Users/J/Desktop/datasciencecoursera/specdata/", "nitrate")
+
+cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", c(6, 10, 34, 100, 200, 310))
+print(cc$nabs)
+
+cc <-complete("/Users/J/Desktop/datasciencecoursera/specdata/", 54)
+print(cc$nabs)
+
+RNGversion("3.5.1")
+set.seed(42)
+cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", 332:1)
+use <- sample(332, 10)
+print(cc[use, "nabs"])
+
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/")
+cr <- sort(cr)
+RNGversion("3.5.1")
+set.seed(868)
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+
+RNGversion()
+
+cr <- cor("/Users/J/Desktop/datasciencecoursera/specdata/", 2000)
+n <- length(cr)
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/", 1000)
+cr <- sort(cr)
+print.function(c(n, round(cr, 4)))
+
+cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", 54)
+print(cc$nabs)
+
+pollutantmean("/Users/J/Desktop/datasciencecoursera/specdata/", "nitrate")
+
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/")             
+cr <- sort(cr)                
+RNGversion("3.5.1")
+set.seed(868)                
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/", 2000)
+n <- length(cr)
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/", 1000)
+cr <- sort(cr)
+print(c(n, round(cr, 4)))
+
+RNGversion("3.5.1")
+set.seed(42)
+cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", 332:1)
+use <- sample(332, 10)
+print(cc[use, "nabs"])
+
+cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", c(6, 10, 20, 34, 100, 200, 310))
+print(cc$nabs)
