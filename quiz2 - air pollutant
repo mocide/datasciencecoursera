@@ -9,13 +9,37 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
   mean(values, na.rm = TRUE)
 }
 
-pollutantmean("/Users/J/Desktop/datasciencecoursera/specdata/", "nitrate")
+corr <- function(directory, threshold = 0) {
+  cor_results <- numeric(length = 0L)
+  complete_cases <- complete(directory = , id = 1:332)
+  complete_cases <- complete_cases[complete_cases$nabs>=threshold, ]
+  if(nrow(complete_cases)>0) {
+    for(monitor in complete_cases$id) {
+      path <- paste(getwd(), "/", "/Users/J/Desktop/datasciencecoursera/specdata/", "/", sprintf("%03d", monitor, ".csv", sep = ""))
+      monitor_data <- read.csv(path)    
+      interested_data <- monitor_data[(!is.na(monitor_data$sulfate)), ]
+      interested_data <- interested_data[(!is.na(monitor_data$nitrate)), ]
+      sulfate_data <- interested_data["sulfate"]
+      nitrate_date <- interested_data["nitate"]
+      cor_results <- c(cor_results, cor(sulfate_data, nitrate_data))
+      }
+  }
+}
+
+cr <- corr("/Users/J/Desktop/datasciencecoursera/specdata/")
+cr <- sort(cr)
+RNGversion("3.5.1")
+set.seed(868)
+out <- round(cr[sample(length(cr), 5)], 4)
+print(out)
+
+cc <-complete("/Users/J/Desktop/datasciencecoursera/specdata/", 54)
+print(cc$nabs)
 
 cc <- complete("/Users/J/Desktop/datasciencecoursera/specdata/", c(6, 10, 34, 100, 200, 310))
 print(cc$nabs)
 
-cc <-complete("/Users/J/Desktop/datasciencecoursera/specdata/", 54)
-print(cc$nabs)
+pollutantmean("/Users/J/Desktop/datasciencecoursera/specdata/", "nitrate")
 
 RNGversion("3.5.1")
 set.seed(42)
